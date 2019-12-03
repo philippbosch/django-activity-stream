@@ -5,7 +5,6 @@ from inspect import getargspec
 from django.apps import apps
 from django.test import TestCase
 from django.template import Template, Context
-from django.utils.six import text_type
 from django.utils.timesince import timesince
 from django.contrib.sites.models import Site
 from django.contrib.auth import get_user_model
@@ -53,7 +52,7 @@ class ActivityBaseTestCase(TestCase):
 
     def assertSetEqual(self, l1, l2, msg=None, domap=True):
         if domap:
-            l1 = map(text_type, l1)
+            l1 = map(str, l1)
         self.assertSequenceEqual(set(l1), set(l2), msg)
 
     def assertAllIn(self, bits, string):

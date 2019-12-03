@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.syndication.views import Feed, add_domain
 from django.contrib.sites.models import Site
 from django.utils.encoding import force_text
-from django.utils.six import text_type
 from django.utils import datetime_safe
 from django.views.generic import View
 from django.http import HttpResponse, Http404
@@ -79,7 +78,7 @@ class AbstractActivityStream(object):
             'verb': action.verb,
             'published': rfc3339_date(action.timestamp),
             'actor': self.format_actor(action),
-            'title': text_type(action),
+            'title': str(action),
         }
         if action.description:
             item['content'] = action.description
@@ -98,7 +97,7 @@ class AbstractActivityStream(object):
             'id': self.get_uri(action, obj),
             'url': self.get_url(action, obj),
             'objectType': ContentType.objects.get_for_model(obj).name,
-            'displayName': text_type(obj)
+            'displayName': str(obj)
         }
 
     def format_actor(self, action):

@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import activate, get_language
-from django.utils.six import text_type
 
 try:
     from django.urls import reverse
@@ -114,7 +113,7 @@ class ActivityTestCase(DataTestCase):
         self.assertEqual(created.actor, self.user1)
         self.assertEqual(created.action_object, self.comment)
         self.assertEqual(created.target, self.group)
-        self.assertEqual(text_type(created),
+        self.assertEqual(str(created),
                          'admin created comment admin: Sweet Group!... on '
                          'CoolGroup %s ago' % self.timesince)
 
